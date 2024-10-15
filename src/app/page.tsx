@@ -1,9 +1,20 @@
-import Image from "next/image";
+import styles from "./main.module.css"
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      Aniket&apos;s quiz app task
+    <div className={styles.app_home}>
+        <div className={styles.app_home_container}>
+          <div className={styles.home_intro_block}>
+            <h1>
+              Aniket&apos;s quiz app task
+            </h1>
+          </div>
+          <div className={styles.home_login_block}>
+            <h1>
+              Create a Dummy User
+            </h1>
+          </div>
+        </div>
     </div>
   );
 }
