@@ -1,0 +1,53 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.optionsList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.optionButton {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.optionButton:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.optionButton.selected {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.nextButton {
+  padding: 10px 20px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nextButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
