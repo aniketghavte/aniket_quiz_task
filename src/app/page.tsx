@@ -1,8 +1,28 @@
+import UserLogin from "@/components/UserLogin/userLogin";
 import styles from "./main.module.css"
 
 
-
 export default function Home() {
+
+  const features = [
+    {
+      name: "Authentication",
+    },
+    {
+      name: "Middeware",
+    },
+    {
+      name: "MongoDb"
+    },
+    {
+      name: "NextJs"
+    },
+    {
+      name: "Docker"
+    }
+  ]
+
+
   return (
     <div className={styles.app_home}>
         <div className={styles.app_home_container}>
@@ -55,9 +75,25 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.home_login_block}>
-            <h1>
-              Create a Dummy User
-            </h1>
+            <div className={styles.home_login_block_header}>
+              <h1>Web based Quiz Application</h1>
+              <p>Create a dummy user and start the quiz</p>
+            </div>
+            <>
+               <UserLogin/>
+            </>
+            <div className={styles.features_list_block}>
+                {
+                  features.map((feature, index) => {
+                    return(
+                      <div key={index} className={styles.features_list_block_item}>
+                        <div className={styles.features_list_block_item_icon}></div>
+                        <p>{feature.name}</p>
+                      </div>
+                    )
+                  })
+                }
+            </div>
           </div>
         </div>
     </div>
