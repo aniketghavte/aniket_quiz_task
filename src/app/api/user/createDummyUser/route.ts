@@ -2,7 +2,7 @@ import { connectDB } from '@/config/DB/connect';
 import { NextResponse } from 'next/server';
 import User from '@/config/DB/Models/User.model';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
@@ -31,11 +31,10 @@ export async function POST(request: Request) {
 
     await newUser.save();
 
-    const token = jwt.sign(
-      { userId: newUser._id },
-      process.env.JWT_SECRET as string,
-      { expiresIn: '7d' }
-    );
+    const token = await new SignJWT({ userId: newUser._id.toString() })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setExpirationTime('7d')
+      .sign(new TextEncoder().encode(process.env.JWT_SECRET));
 
     cookies().set('token', token, {
       httpOnly: true,

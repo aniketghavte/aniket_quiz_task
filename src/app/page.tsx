@@ -18,8 +18,11 @@ export default function Home() {
       name: "NextJs"
     },
     {
+      name: "Typescript"
+    },
+    {
       name: "Docker"
-    }
+    },
   ]
 
 

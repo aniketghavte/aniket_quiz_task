@@ -90,31 +90,35 @@ export default function Quiz() {
   }
 
   return (
-    <div className={styles.container}>
-      <h2>Question {currentQuestion + 1}</h2>
-      <p>{questions[currentQuestion].text}</p>
-      <ul className={styles.optionsList}>
-        {questions[currentQuestion].options.map((option, index) => (
-          <li key={index}>
+    <div className={styles.app_quiz}>
+      <div className={styles.main_body}>
+        <div className={styles.container}>
+          <h2>Question {currentQuestion + 1}</h2>
+          <p>{questions[currentQuestion].text}</p>
+          <ul className={styles.optionsList}>
+            {questions[currentQuestion].options.map((option, index) => (
+              <li key={index}>
+                <button
+                  className={`${styles.optionButton} ${selectedOption === index ? styles.selected : ''}`}
+                  onClick={() => handleOptionSelect(index)}
+                  disabled={selectedOption !== null}
+                >
+                  {option}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className={styles.footer}>
+            <p>Time left: {timeLeft} seconds</p>
             <button
-              className={`${styles.optionButton} ${selectedOption === index ? styles.selected : ''}`}
-              onClick={() => handleOptionSelect(index)}
-              disabled={selectedOption !== null}
+              className={styles.nextButton}
+              onClick={handleNext}
+              disabled={selectedOption === null}
             >
-              {option}
+              Next
             </button>
-          </li>
-        ))}
-      </ul>
-      <div className={styles.footer}>
-        <p>Time left: {timeLeft} seconds</p>
-        <button
-          className={styles.nextButton}
-          onClick={handleNext}
-          disabled={selectedOption === null}
-        >
-          Next
-        </button>
+          </div>
+        </div>
       </div>
     </div>
   );
