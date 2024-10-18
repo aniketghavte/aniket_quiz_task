@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './Quiz.module.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface Question {
   id: number;
@@ -10,55 +11,49 @@ interface Question {
   correctAnswer: number;
 }
 
-const questions: Question[] = [
-  {
-    id: 1,
-    text: "What is the capital of France?",
-    options: ["London", "Berlin", "Paris", "Madrid"],
-    correctAnswer: 2,
-  },
-  {
-    id: 2,
-    text: "What is the capital of Germany?",
-    options: ["London", "Berlin", "Paris", "Madrid"],
-    correctAnswer: 1,
-  },
-  {
-    id: 3,
-    text: "What is the capital of Italy?",
-    options: ["London", "Berlin", "Paris", "Madrid"],
-    correctAnswer: 3,
-  },
-  {
-    id: 4,
-    text: "What is the capital of Italy?",
-    options: ["London", "Berlin", "Paris", "Madrid"],
-    correctAnswer: 3,
-  },
-  {
-    id: 5,
-    text: "What is the capital of Italy?",
-    options: ["London", "Berlin", "Paris", "Madrid"],
-    correctAnswer: 3,
-  },
-  
-];
-
 export default function Quiz() {
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30);
   const [quizEnded, setQuizEnded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (timeLeft > 0 && !quizEnded) {
+    const fetchQuestions = async () => {
+      const loadingToast = toast.loading('Loading questions...');
+      try {
+        const response = await fetch('/api/quiz/start');
+        if (!response.ok) {
+          throw new Error('Failed to fetch questions');
+        }
+        const data = await response.json();
+        if (data.success && Array.isArray(data.data)) {
+          setQuestions(data.data);
+          toast.success('Questions loaded successfully', { id: loadingToast });
+        } else {
+          throw new Error('Invalid data format');
+        }
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+        toast.error('Failed to load questions', { id: loadingToast });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchQuestions();
+  }, []);
+
+  useEffect(() => {
+    if (timeLeft > 0 && !quizEnded && !isLoading) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && !quizEnded) {
+    } else if (timeLeft === 0 && !quizEnded && !isLoading) {
       handleNext();
     }
-  }, [timeLeft, quizEnded]);
+  }, [timeLeft, quizEnded, isLoading]);
 
   const handleOptionSelect = (optionIndex: number) => {
     setSelectedOption(optionIndex);
@@ -75,16 +70,64 @@ export default function Quiz() {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedOption(null);
       setTimeLeft(30);
+      toast.success("Answer Submitted");
     } else {
+      toast.success("Quiz Ended");
       setQuizEnded(true);
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className={styles.app_quiz}>
+        <div className={styles.main_body}>
+          <div className={styles.container}>
+            <h2>Loading Quiz...</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (quizEnded) {
     return (
-      <div className={styles.container}>
-        <h2>Quiz Ended</h2>
-        <p>Your score: {score} out of {questions.length}</p>
+          <div className={styles.app_quiz}>
+          <div className={styles.main_body}>
+            <div className={styles.container}>
+              <div className={styles.container_header}>
+                <h2>Your Score</h2>
+              </div>
+              <div className={styles.container}>
+                <h2>Quiz Ended</h2>
+                <p className={styles.final_score}>Your score: {score} out of {questions.length}</p>
+              </div>
+              <div className={styles.footer}>
+                <button
+                  className={styles.nextButton}
+                  onClick={() => {
+                    setCurrentQuestion(0);
+                    setSelectedOption(null);
+                    setScore(0);
+                    setQuizEnded(false);
+                  }}
+                >
+                  Restart Test
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    );
+  }
+
+  if (questions.length === 0) {
+    return (
+      <div className={styles.app_quiz}>
+        <div className={styles.main_body}>
+          <div className={styles.container}>
+            <h2>Error: No questions available</h2>
+          </div>
+        </div>
       </div>
     );
   }
@@ -93,7 +136,9 @@ export default function Quiz() {
     <div className={styles.app_quiz}>
       <div className={styles.main_body}>
         <div className={styles.container}>
-          <h2>Question {currentQuestion + 1}</h2>
+          <div className={styles.container_header}>
+            <h2>Question {currentQuestion + 1}</h2>
+          </div>
           <p>{questions[currentQuestion].text}</p>
           <ul className={styles.optionsList}>
             {questions[currentQuestion].options.map((option, index) => (
@@ -109,6 +154,9 @@ export default function Quiz() {
             ))}
           </ul>
           <div className={styles.footer}>
+            <div className={styles.time_indicator}>
+              <div className={styles.time_indicator_bar} style={{ width: `${(timeLeft / 30) * 100}%` }}></div>
+            </div>
             <p>Time left: {timeLeft} seconds</p>
             <button
               className={styles.nextButton}
@@ -120,6 +168,10 @@ export default function Quiz() {
           </div>
         </div>
       </div>
+      <Toaster
+          position="bottom-right"
+          reverseOrder={false}
+        />
     </div>
   );
 }

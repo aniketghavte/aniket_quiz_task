@@ -1,5 +1,6 @@
 import UserLogin from "@/components/UserLogin/userLogin";
 import styles from "./main.module.css"
+import Link from "next/link";
 
 
 export default function Home() {
@@ -41,22 +42,22 @@ export default function Home() {
                <h1>Task Details</h1>
                <div className={styles.references_block_content}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                  <p>Github Repo : </p>
+                  <p>Github Repo : <Link href="https://github.com/aniketghavte/aniket_quiz_task">Click Here</Link> </p>
                </div>
                <div className={styles.references_block_content}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe-lock"><path d="M15.686 15A14.5 14.5 0 0 1 12 22a14.5 14.5 0 0 1 0-20 10 10 0 1 0 9.542 13"/><path d="M2 12h8.5"/><path d="M20 6V4a2 2 0 1 0-4 0v2"/><rect width="8" height="5" x="14" y="6" rx="1"/></svg>
-                  <p>Website Hosted Link ( current website ) :  this website is hosted on vercel </p>
+                  <p>Website Hosted Link ( current website ) <Link href="https://quiz-upraised-bice.vercel.app/">quiz-upraised-bice.vercel.app/</Link> :  this website is hosted on vercel </p>
                </div>
             </div>
             <div className={styles.references_block}>
                <h1>References Given</h1>
                <div className={styles.references_block_content}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-figma"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg>
-                  <p>Figma File : </p>
+                  <p>Figma File : <Link href="https://www.figma.com/file/sz65ABV7RBrLzgIp8OQSB4/Frontend-Assignment">Click Here</Link> </p>
                </div>
                <div className={styles.references_block_content}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-book-text"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 11h8"/><path d="M8 7h6"/></svg>
-                  <p>Google Doc Provided : </p>
+                  <p>Google Doc Provided : <Link href="https://drive.google.com/file/d/12MWlB6WKTdSg78j38zy0Rd-dxiyoclOH/view">Click Here</Link> </p>
                </div>
             </div>
             <div className={styles.references_block}>

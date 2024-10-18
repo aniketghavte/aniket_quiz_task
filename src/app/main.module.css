@@ -114,6 +114,9 @@
     color: #a3a3a3;
     /* text-transform: capitalize; */
 }
+.references_block_content p a{
+    color: #ff7d16;
+}
 .features_list_block{
     width: 80%;
     height: max-content;
