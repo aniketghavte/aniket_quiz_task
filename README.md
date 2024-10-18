@@ -48,7 +48,7 @@ In addition to the core requirements, this project also includes a containerized
 
 The Quiz Web App is deployed and accessible online using Vercel. You can view and interact with the live application at the following URL:
 
-[Quiz Web App Live Demo](https://quiz-web-app-aniket.vercel.app/)
+[Quiz Web App Live Demo](https://quiz-upraised-bice.vercel.app/)
 
 This deployment showcases the fully functional application in a production environment, allowing for easy testing and demonstration of the project's features.
 
