@@ -4,7 +4,7 @@
 
 This repository contains a Quiz Web App developed as part of an internship task assigned by a company. The application is built using Next.js and MongoDB, showcasing various technical features and best practices in web development.
 
-[Deployed on Vercel]([https://quiz-web-app-aniket.vercel.app/](https://vercel.live/link/quiz-upraised-bice.vercel.app?via=project-dashboard-alias-list&p=1))
+[Deployed on Vercel]([https://quiz-web-app-aniket.vercel.app/])
 
 
 ## References
