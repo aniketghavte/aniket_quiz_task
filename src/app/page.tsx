@@ -66,15 +66,15 @@ export default function Home() {
                }}>Contact me - hope you will need it ;)</h1>
                <div className={styles.references_block_content}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-book-text"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 11h8"/><path d="M8 7h6"/></svg>
-                  <p>Email : {<span>aniketghavte@gmail.com</span>} </p>
+                  <p>Email : {<Link href="mailto:aniketghavte@gmail.com">aniketghavte@gmail.com</Link>} </p>
                </div>
                <div className={styles.references_block_content}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-book-text"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 11h8"/><path d="M8 7h6"/></svg>
-                  <p>phone : {<span>+91 93200 63636</span>} </p>
+                  <p>phone : {<Link href="tel:+918805679503">+91 8805679503</Link>} </p>
                </div>
                <div className={styles.references_block_content}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-book-text"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 11h8"/><path d="M8 7h6"/></svg>
-                  <p>See My Resume : {<span>See my Resume</span>} </p>
+                  <p>Download My Resume : {<Link href="https://drive.google.com/file/d/1FaOyJ6c35OU-qa1dL6rdweEcPGz8r2WT/view?usp=sharing"  target="_blank" >Download Resume</Link>} </p>
                </div>
             </div>
           </div>
@@ -83,9 +83,9 @@ export default function Home() {
               <h1>Web based Quiz Application</h1>
               <p>Create a dummy user and start the quiz</p>
             </div>
-            <>
+            <div className="w-7/12">
                <UserLogin/>
-            </>
+            </div>
             <div className={styles.features_list_block}>
                 {
                   features.map((feature, index) => {

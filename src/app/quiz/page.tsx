@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Quiz.module.css';
 import toast, { Toaster } from 'react-hot-toast';
-
+import { CircularProgress } from '@nextui-org/react';
 interface Question {
   id: number;
   text: string;
@@ -19,6 +19,7 @@ export default function Quiz() {
   const [timeLeft, setTimeLeft] = useState(30);
   const [quizEnded, setQuizEnded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [userAnswers, setUserAnswers] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -57,6 +58,9 @@ export default function Quiz() {
 
   const handleOptionSelect = (optionIndex: number) => {
     setSelectedOption(optionIndex);
+    const newUserAnswers = [...userAnswers];
+    newUserAnswers[currentQuestion] = optionIndex;
+    setUserAnswers(newUserAnswers);
   };
 
   const handleNext = () => {
@@ -74,6 +78,35 @@ export default function Quiz() {
     } else {
       toast.success("Quiz Ended");
       setQuizEnded(true);
+      const submitQuiz = async () => {
+        try {
+          const response = await fetch('/api/quiz/end', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              score,
+              totalQuestions: questions.length,
+              questions: questions.map(q => ({ id: q.id, text: q.text, correctAnswer: q.correctAnswer })),
+              userAnswers
+            }),
+          });
+          if (!response.ok) {
+            throw new Error('Failed to submit quiz');
+          }
+          const data = await response.json();
+          if (data.success) {
+            toast.success('Quiz submitted successfully');
+          } else {
+            throw new Error('Failed to submit quiz');
+          }
+        } catch (error) {
+          console.error('Error submitting quiz:', error);
+          toast.error('Failed to submit quiz');
+        }
+      };
+      submitQuiz();
     }
   };
 
@@ -96,6 +129,24 @@ export default function Quiz() {
             <div className={styles.container}>
               <div className={styles.container_header}>
                 <h2>Your Score</h2>
+                <div className={styles.score_indicator}>
+                  <CircularProgress
+                    aria-label="Loading..."
+                    size="lg"
+                    value={
+                      (score / questions.length) * 100
+                    }
+                    color="secondary"
+                    showValueLabel={true}
+                    classNames={{
+                      svg: "w-20 h-20",
+                      track: "stroke-gray-300",
+                      indicator: "stroke-green-500",
+                      value: "text-green-500 text-xl",
+                      label: "text-green-500 text-xl",
+                    }}
+                  />
+                </div>
               </div>
               <div className={styles.container}>
                 <h2>Quiz Ended</h2>
@@ -134,6 +185,8 @@ export default function Quiz() {
 
   return (
     <div className={styles.app_quiz}>
+        <div className={styles.main_bg}>
+        </div>
       <div className={styles.main_body}>
         <div className={styles.container}>
           <div className={styles.container_header}>
@@ -146,7 +199,7 @@ export default function Quiz() {
                 <button
                   className={`${styles.optionButton} ${selectedOption === index ? styles.selected : ''}`}
                   onClick={() => handleOptionSelect(index)}
-                  disabled={selectedOption !== null}
+                  // Remove the 'disabled' attribute to allow changing the answer
                 >
                   {option}
                 </button>
@@ -169,9 +222,9 @@ export default function Quiz() {
         </div>
       </div>
       <Toaster
-          position="bottom-right"
-          reverseOrder={false}
-        />
+        position="bottom-right"
+        reverseOrder={false}
+      />
     </div>
   );
 }

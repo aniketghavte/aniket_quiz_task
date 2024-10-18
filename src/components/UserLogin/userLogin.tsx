@@ -72,7 +72,7 @@ export default function UserLogin() {
                 isRandomUserGenerated ? (
                     <button className={styles.app_login_form_button}  type="submit">
                         {
-                            isLoading ? <Spinner color='default' size='lg'/> : "Create User"
+                            isLoading ? <Spinner color='default' size='sm'/> : "Create User"
                         }
                     </button>
                 ) : (
